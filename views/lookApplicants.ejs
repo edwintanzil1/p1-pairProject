@@ -1,0 +1,28 @@
+<%- include('partials/header', {title : 'Interviewer Schedule Page'}) %> 
+<%- include('partials/nav') %> 
+    <h1 class="text-center" style="margin-top: 80px;margin-bottom: 50px;">List Applicants For : <%= data.fullName() %> </h1>
+    <br>
+    <table class="table" style="margin:auto;">
+        <tr class="bg-light">
+          <th>Applicant Name</th>
+          <th>Applicant Age</th>
+          <th>Applicant Email</th>
+          <th>Applicant Gender</th>
+          <th>Schedule Interview</th>
+          <th>Inteview Type</th>
+        </tr>
+          <% data.Applicants.forEach(el => { %>
+        <tr>
+          <td><%= el.fullName() %></td>
+          <td><%= calculateAge(el.birth_date.toISOString().substring(0, 4)) %></td>
+          <td><%= el.email %></td>
+          <td><%= el.gender %></td>
+          <td><%= formatDate(el.ApplicantInterviewer.schedule_date) %></td>
+          <td><%= el.ApplicantInterviewer.interview_type %></td>
+        </tr>
+        <% }) %>
+    </table>
+    <br>
+    <br>
+</body>
+</html>

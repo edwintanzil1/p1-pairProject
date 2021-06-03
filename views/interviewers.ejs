@@ -1,0 +1,33 @@
+<%- include('partials/header', {title : 'Interviewers Page'}) %> 
+<%- include('partials/nav') %> 
+    <h1 class="text-center" style="margin-top: 80px;margin-bottom: 20px;">Interviewers</h1>
+    <div class="text-center m-5">
+      <a href="http://localhost:3000/interviewers/add" class="text-decoration-none p-2 bg-success rounded" style="color: white;">Add Interviewer</a>
+    </div>
+    <table class="table" style="margin:auto;">
+        <tr class="bg-light">
+          <th>Name</th>
+          <th>Birth Date</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Department</th>
+          <th>Action</th>
+        </tr>
+          <% for(let i = 0;i< data.length; i++ ) { %>
+        <tr>
+         
+          <td><%= data[i].fullName() %></td>
+          <td><%= data[i].birth_date.toISOString().substring(0, 10)  %></td>
+          <td><%= data[i].email%></td>
+          <td><%= data[i].gender%></td>
+          <td><%= data[i].department%></td>
+     
+          <td>
+            <a href="/interviewers/edit/<%=data[i].id %>" class="text-decoration-none p-2 bg-warning rounded" style="color: white;"> Edit</a>
+            <a href="/interviewers/delete/<%=data[i].id %>" class="text-decoration-none p-2 bg-danger rounded" style="color: white;"> Delete</a>
+            <a href="/interviewers/lookApplicants/<%=data[i].id %>" class="text-decoration-none p-2 bg-secondary rounded" style="color: white;"> Look Applicant</a>
+          </td>
+        </tr>
+        <% } %>  
+    </table>
+<%- include('partials/footer') %> 

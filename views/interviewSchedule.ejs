@@ -1,0 +1,58 @@
+<%- include('partials/header', {title : 'Interviewers Page'}) %> 
+<%- include('partials/nav') %> 
+    <h1 class="text-center" style="margin-top: 80px;margin-bottom: 50px;">Interview Schedule For : <%= data.fullName() %> </h1>
+    
+    <form action="/applicants/schedule/<%= data.id %>" method="POST" class="w-50" style="margin: auto; margin-bottom: 50px;">
+        <div class="form-group">
+            <label for="interviewer_id">Assign Interviewer</label><br>
+            <select name="interviewer_id" id="interviewer_id" class="form-control">
+                <% interviewer.forEach(el => { %> 
+                <option value="<%= el.id %>"><%= Interviewer.nameAndDepartment(el.fullName(), el.department) %></option>
+                <% })  %> 
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="schedule_date">Interview Schedule</label>
+            <input type="date" name="schedule_date" id="schedule_date" class="form-control">
+            <input type="time" name="time" id="time" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="interview_type">Interview Type</label><br>
+            <select name="interview_type" id="interview_type" class="form-control">
+                <option value="Video Call">Video Call</option>
+                <option value="Phone Call">Phone Call</option>
+                <option value="On Site">On Site</option>
+            </select>
+        </div>
+    <button type="submit" class="btn btn-primary">Schedule Interview</button>
+    </form>
+<br>
+<br>
+    <table class="table" style="margin:auto;">
+        <thead>
+            <tr>
+                <th>Inteviewer Name</th>
+                <th>Department</th>
+                <th>Schedule Interview</th>
+                <th>Interview Type</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <% data.Interviewers.forEach(el => { %> 
+                <tr>
+                    <td><%= el.fullName() %> </td>
+                    <td><%= el.department %> </td>
+                    <td><%= formatDate(el.ApplicantInterviewer.schedule_date) %> </td>
+                    <td><%= el.ApplicantInterviewer.interview_type %> </td>
+                   
+                </tr>
+            <% }) %> 
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <div class="text-center">
+        <a href="/applicants/sendSchedule/<%= data.id %>" style="text-decoration: none; color: black;" class="p-2 bg-success rounded text-white">Send Email To Applicant</a>
+    </div>
+<%- include('partials/footer') %> 

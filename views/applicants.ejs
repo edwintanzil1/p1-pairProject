@@ -1,0 +1,32 @@
+<%- include('partials/header', {title : 'Applicants Page'}) %> 
+  <%- include('partials/nav') %> 
+    <h1 class="text-center" style="margin-top: 80px;margin-bottom: 20px;">Applicants</h1>
+    <div class="text-center m-5">
+      <a href="http://localhost:3000/applicants/add" class="text-decoration-none p-2 bg-success rounded" style="color: white;">Add Applicant</a>
+    </div>
+    <table class="table" style="margin:auto;">
+        <tr class="bg-light">
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Position</th>
+          <th>Gender</th>
+          <th>Action</th>
+        </tr>
+          <% for(let i = 0;i< data.length; i++ ) { %>
+        <tr>
+         
+          <td><%= data[i].fullName() %></td>
+          <td><%= calculateAge(data[i].birth_date.toISOString().substring(0, 4)) %></td>
+          <td><%= data[i].email%></td>
+          <td><%= data[i].position%></td>
+          <td><%= data[i].gender%></td>
+     
+          <td>
+            <a href="/applicants/edit/<%=data[i].id %>" class="text-decoration-none p-2 bg-warning rounded" style="color: white;">Edit</a>
+            <a href="/applicants/delete/<%=data[i].id %>" class="text-decoration-none p-2 bg-danger rounded" style="color: white;">Delete</a>
+            <a href="/applicants/schedule/<%=data[i].id %>" class="text-decoration-none p-2 bg-info rounded" style="color: white;">Schedule</a>
+        </tr>
+        <% } %>
+    </table>
+<%- include('partials/footer') %> 
